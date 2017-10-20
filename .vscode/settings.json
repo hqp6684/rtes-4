@@ -1,0 +1,14 @@
+{
+  "C_Cpp.intelliSenseEngine": "Tag Parser",
+  "files.associations": {
+    "iostream": "cpp",
+    "iosfwd": "cpp",
+    "bitset": "cpp",
+    "chrono": "cpp",
+    "algorithm": "cpp",
+    "array": "cpp",
+    "rope": "cpp",
+    "slist": "cpp",
+    "string_view": "cpp"
+  }
+}

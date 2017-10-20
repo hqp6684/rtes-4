@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "taskName": "build hello world",
+      "type": "shell",
+      "command": "g++",
+      "args": ["q_template.cpp", "main.cpp", "customer.cpp", "-lpthread"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

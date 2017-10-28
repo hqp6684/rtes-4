@@ -9,6 +9,7 @@
     "array": "cpp",
     "rope": "cpp",
     "slist": "cpp",
-    "string_view": "cpp"
+    "string_view": "cpp",
+    "ostream": "cpp"
   }
 }

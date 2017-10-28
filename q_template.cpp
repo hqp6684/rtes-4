@@ -45,7 +45,7 @@ void QTemplate<T>::enQ(T val)
     //update number of items in q
     qNum++;
 }
-
+// clock_gettime
 template <class T>
 void QTemplate<T>::deQ(T &val)
 {

@@ -53,35 +53,34 @@ int main(void)
 
     // /* Let the threads run for 60 seconds. */
     // sleep(60);
-    
+
     string word;
     int number;
-     
-    QTemplate<string> strque;
-    QTemplate<int> intque;
 
+    QTemplate<string> strque;
+    // QTemplate<int> intque;
 
     cout << "We have a queue to hold names." << endl;
-	cout << "Our queue of names is " << (strque.isEmpty() ? "Empty" : "Not Empty");
+    cout << "Our queue of names is " << (strque.isEmpty() ? "Empty" : "Not Empty");
 
-	cout << "We will put three names into our queue." << endl;
+    cout << "We will put three names into our queue." << endl;
 
-	//Enqueueing names...
-	for (int n = 0; n < 3; n++)
-	{
-		cout << "Enter name: " << endl;
-		getline(cin, word);
-		strque.enQ(word);
-	}
+    //Enqueueing names...
+    for (int n = 0; n < 3; n++)
+    {
+        cout << "Enter name: " << endl;
+        getline(cin, word);
+        strque.enQ(word);
+    }
 
-	cout << "Our queue of names is " << (strque.isEmpty() ? "still empty" : "no longer empty");
-	cout << "The program will read back the names in the order they were entered.\n";
+    cout << "Our queue of names is " << (strque.isEmpty() ? "still empty" : "no longer empty");
+    cout << "The program will read back the names in the order they were entered.\n";
 
-	for (int n = 0; n < 3; n++)
-	{
-		strque.deQ(word);
-		cout << word << endl;
-	}
+    for (int n = 0; n < 3; n++)
+    {
+        strque.deQ(word);
+        cout << word << endl;
+    }
 
     return 0;
 }

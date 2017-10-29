@@ -30,6 +30,7 @@ public:
 
   void enQ(T);
   void deQ(T &);
+  int getLength() const;
   bool isEmpty() const;
 };
 
@@ -103,6 +104,12 @@ bool QTemplate<T>::isEmpty() const
     empty = true;
 
   return empty;
+}
+
+template <class T>
+int QTemplate<T>::getLength() const
+{
+  return qNum;
 }
 
 #endif

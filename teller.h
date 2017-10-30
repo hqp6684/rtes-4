@@ -18,13 +18,17 @@ public:
   // Use this as a linked list to keep all customers
   QTemplate<Customer *> customers;
   // Keep track of wait time
-  QTemplate<int> waitTimes;
+  // QTemplate<int> waitTimes;
+  int waitSum;
 
   Teller(int x);
 
-  void saveCustomer(Customer *customer_ptr);
+  void saveCustomer();
 
   void getCustomer();
+
+  void serveCustomer(Customer *customer_ptr);
+  void report();
 
 
   static void *execute(void *arg);

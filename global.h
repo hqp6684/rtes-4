@@ -9,4 +9,7 @@ extern pthread_mutex_t mutex;
 
 extern QTemplate<Customer *> *sharedQ_ptr;
 
+extern bool bankIsClosed;
+extern bool mainQIsEmpty;
+
 #endif

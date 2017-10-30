@@ -10,9 +10,10 @@ class Teller
 
 public:
   int id;
-  int count;
-  int customerCount;
+  // int count;
+  // int customerCount;
   int waitTimeStart;
+  bool isDone;
 
   // Use this as a linked list to keep all customers
   QTemplate<Customer *> customers;
@@ -24,6 +25,7 @@ public:
   void saveCustomer(Customer *customer_ptr);
 
   void getCustomer();
+
 
   static void *execute(void *arg);
 };

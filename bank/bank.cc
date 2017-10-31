@@ -28,6 +28,13 @@ int maxQLength = 0;
 
 int customerCount = 0;
 
+int toMinute(int time)
+{
+    int result = 0;
+    result = (100 * (time / CLOCKS_PER_SEC) / 60);
+    return result;
+}
+
 bool is_closed_time(clock_t start_time)
 {
 
@@ -35,16 +42,12 @@ bool is_closed_time(clock_t start_time)
 
     timePassed = (double)(clock() - start_time) / CLOCKS_PER_SEC;
 
-    // std::cout << "Time passed: " << timePassed << endl;
-
     if (timePassed >= OPEN_DURATION_IN_SECONDS)
     {
-        // std::cout << "Time to closed" << endl;
         return true;
     }
     else
     {
-        // std::cout << "Time remainng: " << (OPEN_DURATION_IN_SECONDS - timePassed) << endl;
         return false;
     }
 }
@@ -83,10 +86,10 @@ void *receptionist(void *arg)
             maxQLength = sharedQ_ptr->getLength();
         }
 
-        // useconds_t ran1 = rand() % (ONE_MINUTE_IN_MICROSECONDS * 4);
-        // usleep(ran1);
+        useconds_t ran1 = rand() % (ONE_MINUTE_IN_MICROSECONDS);
+        usleep(ran1);
         pthread_mutex_unlock(&mutex);
-        useconds_t ran2 = rand() % (ONE_MINUTE_IN_MICROSECONDS * 3);
+        useconds_t ran2 = rand() % (ONE_MINUTE_IN_MICROSECONDS * 4);
         usleep(ran2);
     }
 
@@ -107,9 +110,6 @@ int main(void)
     QTemplate<Customer *> custQ;
     // update global pointer for the above Q
     sharedQ_ptr = &custQ;
-
-    // Keep track of all created Customers
-    int customerCount = 0;
 
     Teller *teller_1 = new Teller(1);
     Teller *teller_2 = new Teller(2);
@@ -137,7 +137,9 @@ int main(void)
         sleep(1);
     }
 
-    cout << "Total number of customers serviced: " << customerCount + 1 << endl;
+    cout << "\r\n\r\n\r\n --------- METRICS ------------" << endl;
+
+    cout << "Total number of customers serviced: " << customerCount << endl;
     cout << "Maximum customer wait time in the queue: " << maxWaitTime << endl;
     cout << "Maximum transaction time for the tellers: " << maxTransTime << endl;
     cout << "Maximum deep of the queue: " << maxQLength << endl;

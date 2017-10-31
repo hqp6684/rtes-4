@@ -17,7 +17,7 @@ Teller::Teller(int x) : id(x)
 // Save customer into teller's Q
 void Teller::saveCustomer()
 {
-  cout << "Teller " <<id <<" is getting customer from  the main Q" <<endl;
+  cout << "Teller " << id << " is getting customer from  the main Q" << endl;
 
   int timeNow = clock();
 
@@ -31,7 +31,8 @@ void Teller::saveCustomer()
 
   // record wait time
   int waitTimeEnded = timeNow - waitTimeStart;
-  if(waitTimeEnded>maxWaitTime){
+  if (waitTimeEnded > maxWaitTime)
+  {
     maxWaitTime = waitTimeEnded;
   };
 
@@ -41,20 +42,20 @@ void Teller::saveCustomer()
 };
 
 // Serve customer
-void Teller::serveCustomer(Customer * cust_ptr){
+void Teller::serveCustomer(Customer *cust_ptr)
+{
 
-  cout << "Teller " << id << " is serving Customer " <<cust_ptr->id <<endl;
+  cout << "Teller " << id << " is serving Customer " << cust_ptr->id << endl;
   // Force teller to sleep with a random time to simuate working time
   // From 1 - 10 sec
-  useconds_t randomTime = rand() % 900000;
+  useconds_t randomTime = rand() % (ONE_MINUTE_IN_MICROSECONDS * 6);
   // sleep
   // usleep(randomTime);
-  sleep(1);
+  usleep(randomTime);
 
   // Update time finish
   cust_ptr->setTimeFinish(clock());
-  cout << "Teller " << id << " finished serving Customer " <<cust_ptr->id <<endl;
-
+  cout << "Teller " << id << " finished serving Customer " << cust_ptr->id << endl;
 }
 
 void Teller::getCustomer()
@@ -62,52 +63,62 @@ void Teller::getCustomer()
   // printf("Teller %d started \n\r", id);
 
   bool flag = true;
-  LOOP:
-  while(flag){
+LOOP:
+  while (flag)
+  {
 
     // Try to get the lock
-    if(pthread_mutex_trylock(&mutex) == 0){
+    if (pthread_mutex_trylock(&mutex) == 0)
+    {
       // Check if the main Q is empty
-      if(sharedQ_ptr->isEmpty()){
+      if (sharedQ_ptr->isEmpty())
+      {
 
         // Exit loop if time to close
-        if(bankIsClosed){
+        if (bankIsClosed)
+        {
           flag = false;
-        }else{
-          cout << "Main Q is busy, Teller "<< id << "is waiting"<<endl;
-
+        }
+        else
+        {
           // Start wait timer;
-          if(waitTimeStart ==0){
+          if (waitTimeStart == 0)
+          {
             waitTimeStart = clock();
           }
-
         }
+
         // Release mutex and go back to loop
         pthread_mutex_unlock(&mutex);
-        // usleep(rand()%100000);
-        sleep(1);
+
+        useconds_t randomTime = rand() % ONE_MINUTE_IN_MICROSECONDS * 5;
+
+        cout << "There is no customer in the Q, Teller " << id << " will check back in " << randomTime / ONE_MINUTE_IN_MICROSECONDS << "minutes" << endl;
+        usleep(rand() % randomTime);
+        // sleep(1);
         goto LOOP;
       }
-
-      // Get customer from the main Q
-      saveCustomer();
-
+      else
+      {
+        // Get customer from the main Q
+        saveCustomer();
+      }
     }
-    else{
+    else
+    {
       // start timer
-      if(waitTimeStart == 0){
-        cout << "Main Q is busy, Teller "<< id << "is waiting"<<endl;
+      if (waitTimeStart == 0)
+      {
         waitTimeStart = clock();
-        // sleep(1);
-        useconds_t v1 = rand() % 900000;
-        // sleep
-        // usleep(v1);
-        sleep(1);
+
+        useconds_t randomTime = rand() % ONE_MINUTE_IN_MICROSECONDS * 5;
+
+        cout << "Main Q is busy, Teller " << id << " will be back again in" << randomTime / ONE_MINUTE_IN_MICROSECONDS << "minutes" << endl;
+        usleep(randomTime);
       }
     }
   }
 
-  printf("Teller %d has served %d customer\r\n",id,  customers.getLength());
   // Report
   report();
 }
@@ -122,30 +133,49 @@ void *Teller::execute(void *arg)
   ptr->getCustomer();
 }
 
-void Teller::report(){
+void Teller::report()
+{
+
   pthread_mutex_lock(&mutex);
 
-  int averageWaitTime = waitSum/customers.getLength(); 
-  while(!customers.isEmpty()){
+  cout << "\r\n\r\n\r\n--------" << endl;
+  cout << "Teller " << id << " served " << customers.getLength() << " customers\r\n\r\n"
+       << endl;
+
+  int averageWaitTime = waitSum / customers.getLength();
+  while (!customers.isEmpty())
+  {
     Customer *cust_ptr = nullptr;
     customers.deQ(cust_ptr);
+
+    int servedTime = cust_ptr->timeFinish - cust_ptr->timeEnterQ;
+
+    servedTime = toMinute(servedTime);
+    cout << servedTime << endl;
+
+    if (servedTime > maxTransTime)
+    {
+      maxTransTime = servedTime;
+    };
+
     sharedQ_ptr->enQ(cust_ptr);
   }
   // for(int i = 0; i <customers.getLength(); i++){
   // }
-  switch(id){
-    case 1:
+  switch (id)
+  {
+  case 1:
     teller1AverageWaitTime = averageWaitTime;
     teller1Done = true;
     break;
-    case 2:
+  case 2:
     teller2AverageWaitTime = averageWaitTime;
     teller2Done = true;
     break;
-    case 3:
+  case 3:
     teller3AverageWaitTime = averageWaitTime;
     teller3Done = true;
-    default:
+  default:
     break;
   };
   pthread_mutex_unlock(&mutex);

@@ -15,7 +15,8 @@ void Customer::setTimeLeaveQ(int time)
 {
     timeLeaveQ = time;
     int waitedTime = timeEnterQ - timeLeaveQ;
-    if(waitedTime >maxWaitTime){
+    if (waitedTime > maxWaitTime)
+    {
         maxWaitTime = waitedTime;
     }
 };
@@ -23,8 +24,8 @@ void Customer::setTimeLeaveQ(int time)
 void Customer::setTimeFinish(int time)
 {
     timeFinish = time;
-     int transTime = timeEnterQ - timeFinish;
-     if(transTime > maxTransTime){
-         maxTransTime = transTime;
-     }
+    //  int transTime = timeFinish - timeEnterQ;
+    //  if(transTime > maxTransTime){
+    //      maxTransTime = transTime;
+    //  }
 }

@@ -7,6 +7,20 @@
 
 #define nullptr NULL
 
+/*
+System | Real time
+100 ms  =   60s
+??  ms  =   28800s
+28800*100/60
+48000ms = 28800s = 8 hours
+Hence, 48000ms = 48 seconds
+*/
+
+// #define OPEN_DURATION_IN_SECONDS 48
+#define OPEN_DURATION_IN_SECONDS 11
+// 100ms = 1 miunute
+#define ONE_MINUTE_IN_MICROSECONDS 100000
+
 extern pthread_mutex_t mutex;
 
 extern QTemplate<Customer *> *sharedQ_ptr;
@@ -24,6 +38,5 @@ extern int teller3AverageWaitTime;
 extern int maxWaitTime;
 extern int maxTransTime;
 extern int maxQLength;
-
 
 #endif

@@ -28,13 +28,6 @@ int maxQLength = 0;
 
 int customerCount = 0;
 
-int toMinute(int time)
-{
-    int result = 0;
-    result = (100 * (time / CLOCKS_PER_SEC) / 60);
-    return result;
-}
-
 bool is_closed_time(clock_t start_time)
 {
 
@@ -86,8 +79,8 @@ void *receptionist(void *arg)
             maxQLength = sharedQ_ptr->getLength();
         }
 
-        useconds_t ran1 = rand() % (ONE_MINUTE_IN_MICROSECONDS);
-        usleep(ran1);
+        // useconds_t ran1 = rand() % (ONE_MINUTE_IN_MICROSECONDS);
+        // usleep(ran1);
         pthread_mutex_unlock(&mutex);
         useconds_t ran2 = rand() % (ONE_MINUTE_IN_MICROSECONDS * 4);
         usleep(ran2);

@@ -24,8 +24,4 @@ void Customer::setTimeLeaveQ(int time)
 void Customer::setTimeFinish(int time)
 {
     timeFinish = time;
-    //  int transTime = timeFinish - timeEnterQ;
-    //  if(transTime > maxTransTime){
-    //      maxTransTime = transTime;
-    //  }
 }

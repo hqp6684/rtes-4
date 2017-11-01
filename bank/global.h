@@ -16,8 +16,8 @@ System | Real time
 Hence, 48000ms = 48 seconds
 */
 
-// #define OPEN_DURATION_IN_SECONDS 48
-#define OPEN_DURATION_IN_SECONDS 5
+#define OPEN_DURATION_IN_SECONDS 48
+// #define OPEN_DURATION_IN_SECONDS 5
 // 100ms = 1 miunute
 #define ONE_MINUTE_IN_MICROSECONDS 100000
 

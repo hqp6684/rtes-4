@@ -50,7 +50,6 @@ void Teller::serveCustomer(Customer *cust_ptr)
   // From 1 - 10 sec
   useconds_t randomTime = rand() % (ONE_MINUTE_IN_MICROSECONDS * 6);
   // sleep
-  // usleep(randomTime);
   usleep(randomTime);
 
   // Update time finish
@@ -175,6 +174,7 @@ void Teller::report()
   case 3:
     teller3AverageWaitTime = averageWaitTime;
     teller3Done = true;
+    break;
   default:
     break;
   };

@@ -159,7 +159,7 @@ int main(void)
         serveSum += serveTime;
     }
 
-    cout << "Average time each customer spends waiting in the Q: " << waitSum / (customerCount + 1) << endl;
+    cout << "Average time each customer spends waiting in the Q: " << waitSum / (customerCount) << endl;
     cout << "Average time each customer spends with the teller: " << serveSum / maxQLength << endl;
     int tellerWaitSum = teller1AverageWaitTime + teller2AverageWaitTime + teller3AverageWaitTime;
     int tellAverageWait = tellerWaitSum / 3;

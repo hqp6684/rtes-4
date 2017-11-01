@@ -150,8 +150,8 @@ void Teller::report()
 
     int servedTime = cust_ptr->timeFinish - cust_ptr->timeEnterQ;
 
-    servedTime = toMinute(servedTime);
-    cout << servedTime << endl;
+    // servedTime = toMinute(servedTime);
+    // cout << servedTime << endl;
 
     if (servedTime > maxTransTime)
     {
